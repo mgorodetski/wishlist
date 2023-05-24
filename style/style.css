@@ -79,5 +79,35 @@ fieldset {
 }
 
 .btn {
-    
+    padding: 10px 20px;
+    background: #fff;
+    border-radius: 15px;
+    font-size: 34px;
+    /* line-height: 40px; */
+    text-transform: capitalize;
+    color: #365ABA;
 }
+
+
+.btn_castling {
+    background: #365ABA;
+    color: #FFFFFF;
+}
+
+.input {
+    font-size: 48px;
+}
+
+/* todo */
+
+.hero {
+    display: none;
+}
+
+.wishlist {
+    display: none;
+}
+
+/* .edit {
+    display: none;
+} */
