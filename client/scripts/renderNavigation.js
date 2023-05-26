@@ -1,7 +1,7 @@
 import { API_URL, JWT_TOKEN_KEY } from './const.js';
 import { createBurgerMenu } from './createBurgerMenu.js';
 import { createElem } from './helper.js';
-import { auth } from './index.js';
+import { auth, router } from './index.js';
 import { renderModal } from './renderModal.js';
 
 const nav = document.querySelector('.nav');
@@ -10,6 +10,39 @@ const burger = createBurgerMenu(nav, 'nav_active', 'nav__btn');
 export const renderNavigation = () => {
     nav.textContent = '';
 
+    if(auth.login) {
+        const buttonEditProfile = createElem('button', {
+            className: 'nav__btn btn',
+            textContent: 'Edit Profile',
+        });
+
+        buttonEditProfile.addEventListener('click', () => {
+            router.setRoute(`editProfile/:${auth.login}`);
+        });
+
+        const buttonAddWish = createElem('button', {
+            className: 'nav__btn btn',
+            textContent: 'Add Wish',
+        });
+
+        buttonAddWish.addEventListener('click', () => {
+            router.setRoute('/editwish/newwish');
+        })
+
+        const buttonLogout = createElem('button', {
+            className: 'nav__btn btn',
+            textContent: 'Logout',
+        });
+
+        buttonLogout.addEventListener('click', () => {
+            localStorage.removeItem(JWT_TOKEN_KEY);
+            auth.login = '';
+            router.setRoute('/');
+        })
+
+        nav.append(buttonEditProfile, buttonAddWish, buttonLogout);
+        return;
+    }
     const buttonSignUp = createElem('button', {
         className: 'nav__btn btn',
         textContent: 'Sign Up',
@@ -85,18 +118,20 @@ export const renderNavigation = () => {
                         localStorage.setItem(JWT_TOKEN_KEY, data.token);
                         auth.login = data.login;
                         router.setRoute(`/user/${data.login}`);
+                        console.log(auth.login);
                         return true;
                     } else {
-                        const { message = "unknown error" } = await response.json();
-                        console.log(message);
-                        throw new Error(message);
+                        // const { message = "unknown error" } = await response.json();
+                        // console.log(message);
+                        console.log();
+                        throw new Error(await response.json());
                     }
                 } catch (error) {
                     alert(error.message);
                 }
             }
         });
-    })
+    });
 
     nav.append(buttonSignUp, buttonLogin);
 }

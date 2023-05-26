@@ -81,3 +81,9 @@
     margin-bottom: 54px;
   }
 }
+
+@media (max-width: 490px) {
+  .hero__title {
+    font-size: 66px;
+  }
+}
