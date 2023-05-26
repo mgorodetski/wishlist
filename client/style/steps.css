@@ -44,7 +44,7 @@
   
   .steps__item {
     flex-basis: auto;
-    text-align: center;
+    /* text-align: center; */
   }
   
   .steps__item:before {
@@ -52,4 +52,3 @@
     font-size: 40px;
   }
 }
-
